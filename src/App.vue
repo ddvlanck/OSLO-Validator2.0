@@ -1,28 +1,33 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <vl-region>
+      <vl-layout>
+        <!-- VERSION 1 -->
+        <iframe src="http://localhost:8080/shacl/bedrijventerrein/uploadm"></iframe>
+        <hr>
+        <!-- VERSION 2 -->
+      </vl-layout>
+    </vl-region>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+  $vl-icon-font-location: "../assets/";
+  @import "~@govflanders/vl-ui-core/src/scss/core";
+  @import "~@govflanders/vl-ui-content-header/src/scss/content-header";
+
+  iframe {
+    width: 100%;
+    height: 400px;
+  }
 </style>
