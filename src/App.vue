@@ -1,8 +1,11 @@
 <template>
     <div id="app">
         <!-- VERSION 1 -->
+        <div class="iframe-container">
+            <iframe class="" src="http://localhost:8080/shacl/bedrijventerrein/uploadm"></iframe>
+        </div>
 
-        <vl-region>
+        <!--<vl-region>
             <vl-layout>
                 <vl-grid>
                     <vl-column>
@@ -65,7 +68,7 @@
                     </vl-column>
                 </vl-grid>
             </vl-layout>
-        </vl-region>
+        </vl-region>-->
     </div>
 </template>
 
@@ -171,7 +174,7 @@
 
     iframe {
         width: 100%;
-        height: 400px;
+        height: 750px;
     }
 
     select {
