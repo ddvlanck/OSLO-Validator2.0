@@ -19,7 +19,11 @@ import {
   VlTextarea,
   VlTitle,
   VlSelect,
-  VlButton
+  VlButton,
+  VlInfoTile,
+  VlActionGroup,
+  VlLink,
+  VlIcon
 } from '@govflanders/vl-ui-vue-components';
 
 Vue.component('vl-grid', VlGrid);
@@ -34,6 +38,10 @@ Vue.component('vl-textarea', VlTextarea);
 Vue.component('vl-title', VlTitle);
 Vue.component('vl-select', VlSelect);
 Vue.component('vl-button', VlButton);
+Vue.component('vl-info-tile', VlInfoTile);
+Vue.component('vl-action-group', VlActionGroup);
+Vue.component('vl-link', VlLink);
+Vue.component('vl-icon', VlIcon);
 
 Vue.use(VlCore);
 Vue.use(VlUtil);

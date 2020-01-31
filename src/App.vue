@@ -23,4 +23,7 @@
     @import "~@govflanders/vl-ui-titles/src/scss/titles";
     @import "~@govflanders/vl-ui-select/src/scss/select";
     @import "~@govflanders/vl-ui-button/src/scss/button";
+    @import "~@govflanders/vl-ui-info-tile/src/scss/info-tile";
+    @import "~@govflanders/vl-ui-action-group/src/scss/action-group";
+    @import "~@govflanders/vl-ui-link/src/scss/link";
 </style>

@@ -7,10 +7,14 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@govflanders/vl-ui-action-group": "^3.10.7",
     "@govflanders/vl-ui-button": "^3.10.7",
     "@govflanders/vl-ui-content-header": "^3.10.7",
     "@govflanders/vl-ui-core": "^3.10.7",
+    "@govflanders/vl-ui-icon": "^3.10.7",
+    "@govflanders/vl-ui-info-tile": "^3.10.7",
     "@govflanders/vl-ui-input-field": "^3.10.7",
+    "@govflanders/vl-ui-link": "^3.10.7",
     "@govflanders/vl-ui-select": "^3.10.7",
     "@govflanders/vl-ui-tabs": "^3.10.7",
     "@govflanders/vl-ui-textarea": "^3.10.7",
@@ -19,9 +23,12 @@
     "@govflanders/vl-ui-vue-components": "^3.10.8",
     "core-js": "^3.4.4",
     "node-sass": "^4.13.1",
+    "rdfxml-streaming-parser": "^1.3.4",
     "sass-loader": "^8.0.2",
+    "stream": "0.0.2",
     "vue": "^2.6.10",
-    "vue-router": "^3.1.5"
+    "vue-router": "^3.1.5",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.1.0",
