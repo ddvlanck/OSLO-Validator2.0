@@ -69,6 +69,9 @@
 </template>
 
 <script>
+
+    import store from "../store/store";
+
     export default {
         name: "HomeComponent",
         data() {
@@ -88,10 +91,9 @@
             fileAdded(file) {
                 this.shaclFile = file;
             },
-            validate() {
-                console.log("GOT YA");
-                this.$router.push({path: 'results'});
-                /*const index = this.$refs.tabs.activeTabIndex;
+            async validate() {
+                const index = this.$refs.tabs.activeTabIndex;
+                let requestBody = '';
 
                 if (!this.selectedAP) {
                     this.selectedAPError = true;
@@ -102,52 +104,65 @@
 
                     if (index === 0) {
                         // File
-                        if(!this.shaclFile){
+                        if (!this.shaclFile) {
                             this.shaclFileError = true;
+                            return;
                         } else {
                             this.shaclFileError = false;
 
                             // Read contents of the file
                             const reader = new FileReader();
-                            reader.onload = () => {
-                                const data = reader.result;
 
-                                // Send content to validator
-                                fetch('http://localhost:8080/shacl/bedrijventerrein/api/validate', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    },
-                                    body: JSON.stringify({
-                                        contentToValidate: data,
+                            requestBody = await new Promise(resolve => {
+                                reader.onload = () => {
+                                    const data = reader.result;
+                                    const base64 = data.substring(data.indexOf(',') + 1, data.length);
+                                    resolve(JSON.stringify({
+                                        contentToValidate: base64,
+                                        embeddingMethod: "BASE64",
                                         contentSyntax: 'application/ld+json',
                                         validationType: 'persoon'
-                                    })
-                                }).then( res => {
-                                    console.log(res);
-                                })
-                            };
+                                    }));
+                                };
 
-                            reader.onerror = () => {
-                                // TODO
-                                console.log('Error: ', error);
-                            };
+                                reader.onerror = () => {
+                                    // TODO
+                                    console.log('Error: ', error);
+                                };
 
-                            reader.readAsDataURL(this.shaclFile);
-
-                            // Send content
+                                reader.readAsDataURL(this.shaclFile);
+                            })
                         }
+
                     } else {
                         // URL
-                        if(!this.URL){
+                        if (!this.URL) {
                             this.URLError = true;
+                            return;
                         } else {
                             this.URLError = false;
 
                             // Send URL
                         }
                     }
-                }*/
+
+                    // TODO:
+                    //  Now the body is stored so it can be used in the result to retrieve other formats of the result
+                    //  In the future this needs to be deleted and fixed with rdf serializers
+                    store.commit('setRequestBody', requestBody);
+
+                    // Send content to validator
+                    fetch('http://localhost:8080/shacl/bedrijventerrein/api/validate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: requestBody
+                    }).then(res => {
+                        store.commit('setResult', res);
+                        this.$router.push({path: 'results'});
+                    })
+                }
 
 
             },
