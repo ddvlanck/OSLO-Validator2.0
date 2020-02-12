@@ -172,7 +172,8 @@
                 const requestBody = JSON.parse(store.getters.RequestBody);
                 requestBody.reportSyntax = this.selectedFormat;
 
-                fetch('http://localhost:8080/shacl/bedrijventerrein/api/validate', {
+
+                fetch('http://localhost:8080/shacl/applicatieprofielen/api/validate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -122,12 +122,12 @@
                                     resolve(JSON.stringify({
                                         contentToValidate: base64,
                                         embeddingMethod: "BASE64",
+                                        contentSyntax: 'application/ld+json',   // TODO: aanpassen naar extensie van het bestand
                                         validationType: this.selectedAP
                                     }));
                                 };
 
                                 reader.onerror = () => {
-                                    // TODO
                                     console.log('Error: ', error);
                                 };
 
