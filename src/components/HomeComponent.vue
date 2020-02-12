@@ -44,7 +44,7 @@
                     <vl-column width="3">
                         <vl-select v-model="selectedAP">
                             <option v-for="ap in this.applicationProfiles" :value="ap.toLowerCase()">
-                                {{ ap }}
+                                {{ ap.replace('_', ' ') }}
                             </option>
                         </vl-select>
                     </vl-column>
@@ -77,7 +77,9 @@
         data() {
             return {
                 applicationProfiles: [
-                    'Persoon'
+                    'Tiod_Leuven', 'Adresregister', 'Besluit_Publicatie', 'Dienstencataloog', 'Generiek_basis', 'Generieke_Terugmeldfaciliteit',
+                    'Notificatie_basis', 'Organisatie_basis', 'Persoon_basis', 'Subsidieregister',
+                    'Contactvoorkeuren', 'Dienst_Transactiemodel', 'Vlaamse_codex'
                 ],
                 shaclFile: null,
                 shaclFileError: false,
@@ -120,8 +122,7 @@
                                     resolve(JSON.stringify({
                                         contentToValidate: base64,
                                         embeddingMethod: "BASE64",
-                                        contentSyntax: 'application/ld+json',
-                                        validationType: 'persoon'
+                                        validationType: this.selectedAP
                                     }));
                                 };
 
@@ -143,6 +144,10 @@
                             this.URLError = false;
 
                             // Send URL
+                            requestBody = JSON.stringify({
+                                contentToValidate: this.URL,
+                                validationType: this.selectedAP
+                            })
                         }
                     }
 
@@ -152,7 +157,7 @@
                     store.commit('setRequestBody', requestBody);
 
                     // Send content to validator
-                    fetch('http://localhost:8080/shacl/bedrijventerrein/api/validate', {
+                    fetch('http://localhost:8080/shacl/applicatieprofielen/api/validate', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
