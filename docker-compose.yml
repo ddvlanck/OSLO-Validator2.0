@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  frontend:
+    build:
+      context: ./Validator-frontend
+      dockerfile: Dockerfile
+      args:
+        NPM_TOKEN: ${NPM_TOKEN}
+    ports:
+    - 8081:8081
+  backend:
+    build:
+      context: ./Validator-Backend
+      dockerfile: Dockerfile
+    ports:
+    - 8090:8080
