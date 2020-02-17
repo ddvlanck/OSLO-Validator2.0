@@ -77,7 +77,7 @@
         data() {
             return {
                 applicationProfiles: [
-                    'Tiod_Leuven', 'Adresregister', 'Besluit_Publicatie', 'Dienstencataloog', 'Generiek_basis', 'Generieke_Terugmeldfaciliteit',
+                    'Adresregister', 'Besluit_Publicatie', 'Dienstencataloog', 'Generiek_basis', 'Generieke_Terugmeldfaciliteit',
                     'Notificatie_basis', 'Organisatie_basis', 'Persoon_basis', 'Subsidieregister',
                     'Contactvoorkeuren', 'Dienst_Transactiemodel', 'Vlaamse_codex'
                 ],
