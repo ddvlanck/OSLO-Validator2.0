@@ -33,4 +33,4 @@ Indien je niet over een geldig NPM token beschikt dan heb je voldoende aan `Vali
 > docker run -d -p 8080:8080 --name validator validator-eu
 ```
 
-De tag-naam (`-t`) en containernaam (`--name`) kunnen steeds zelf gekozen worden. De validator is vervolgens beschikbaar op `http://localhost:8080/shacl/applicatieprofielen/upload`
+De tag-naam (`-t`) en containernaam (`--name`) kunnen steeds zelf gekozen worden. De validator is vervolgens beschikbaar op `http://localhost:8080/shacl/applicatieprofielen/upload` . In dit geval wordt gebruik gemaakt van de stand alone versie van Europese validator.
