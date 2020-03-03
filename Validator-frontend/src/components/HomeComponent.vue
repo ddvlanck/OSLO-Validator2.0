@@ -157,7 +157,7 @@
                     store.commit('setRequestBody', requestBody);
 
                     // Send content to validator
-                    fetch('http://localhost:8080/shacl/applicatieprofielen/api/validate', {
+                    fetch('http://backend:8080/shacl/applicatieprofielen/api/validate', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

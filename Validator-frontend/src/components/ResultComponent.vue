@@ -173,7 +173,7 @@
                 requestBody.reportSyntax = this.selectedFormat;
 
 
-                fetch('http://localhost:8080/shacl/applicatieprofielen/api/validate', {
+                fetch('http://backend:8080/shacl/applicatieprofielen/api/validate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
