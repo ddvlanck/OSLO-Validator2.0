@@ -75,6 +75,7 @@
     const RdfaParser = require("rdfa-streaming-parser").RdfaParser;
     const fileReaderStream = require('filereader-stream');
     const N3 = require('n3');
+    const Base64 = require('js-base64').Base64;
 
     export default {
         name: "HomeComponent",
@@ -156,8 +157,9 @@
                             // In case of an RDFa file, we must transform it to another format because the EU validator does not support RDFa (yet)
                             if(this.shaclFile.name.indexOf('.html') >= 0){
                                 const ttl = await this.transformRDFaToTurtle();
+                                //console.log(btoa(ttl));
                                 requestBody = JSON.stringify({
-                                   contentToValidate: btoa(ttl),
+                                    contentToValidate: Base64.encode(ttl),
                                     embeddingMethod: "BASE64",
                                     contentSyntax: 'text/turtle',
                                     validationType: this.selectedAP
@@ -209,7 +211,7 @@
                     store.commit('setRequestBody', requestBody);
 ;
                     // Send content to validator
-                    fetch(process.env.VUE_APP_HOSTNAME_URL +  process.env.VUE_APP_BACKEND_PATH + '/shacl/applicatieprofielen/api/validate', {
+                    fetch('http://localhost:8080/shacl/applicatieprofielen/api/validate', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
