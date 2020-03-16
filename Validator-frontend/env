@@ -1,0 +1,3 @@
+VUE_APP_FRONTEND_PATH=/shacl-validator
+VUE_APP_BACKEND_PATH=/shacl-validator-backend
+VUE_APP_HOSTNAME_URL=http://data.dev-vlaanderen.be

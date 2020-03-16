@@ -6,15 +6,15 @@ import ResultComponent from "../src/components/ResultComponent";
 Vue.use(Router);
 
 export default new Router({
-    mode: 'history',
+   mode: 'history',
    routes: [
        {
-           path: '/',
+           path: process.env.VUE_APP_FRONTEND_PATH + '/',
            name: 'HomeComponent',
            component: HomeComponent
        },
        {
-           path: '/results',
+           path: process.env.VUE_APP_FRONTEND_PATH + '/results/',
            name: 'ResultComponent',
            component: ResultComponent
        }
