@@ -209,7 +209,7 @@
                     store.commit('setRequestBody', requestBody);
 ;
                     // Send content to validator
-                    fetch('http://localhost:8080/shacl/applicatieprofielen/api/validate', {
+                    fetch(process.env.VUE_APP_HOSTNAME_URL +  process.env.VUE_APP_BACKEND_PATH + '/shacl/applicatieprofielen/api/validate', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

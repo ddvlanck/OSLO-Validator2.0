@@ -165,15 +165,14 @@
 
             },
             navigate() {
-                this.$router.push({path: '/'})
+                this.$router.push({path: process.env.VUE_APP_FRONTEND_PATH + '/'})
             },
             changeFormat() {
                 //TODO: in future we need to fix the serializations with rdf instead of querying the validator
                 const requestBody = JSON.parse(store.getters.RequestBody);
                 requestBody.reportSyntax = this.selectedFormat;
 
-
-                fetch('http://localhost:8080/shacl/applicatieprofielen/api/validate', {
+                fetch(process.env.VUE_APP_HOSTNAME_URL +  process.env.VUE_APP_BACKEND_PATH + '/shacl/applicatieprofielen/api/validate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
