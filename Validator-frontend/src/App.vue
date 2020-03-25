@@ -1,6 +1,24 @@
 <template>
     <div id="app">
         <router-view/>
+        <vl-region>
+            <vl-layout>
+                <vl-grid>
+                    <vl-column>
+                        <vl-spotlight
+                                title=""
+                                subtitle=""
+                                mod-large>
+                            <p>
+                                De validator maakt gebruik van de  ISA² Interoperability Test Bed software, dat ontwikkeld wordt door de Europese Commissie DG DIGIT.
+                                Meer info hierover, zie <a href="https://joinup.ec.europa.eu/solution/interoperability-test-bed">hier</a>
+                            </p>
+                        </vl-spotlight>
+                    </vl-column>
+                </vl-grid>
+
+            </vl-layout>
+        </vl-region>
     </div>
 </template>
 
@@ -25,4 +43,5 @@
     @import "~@govflanders/vl-ui-info-tile/src/scss/info-tile";
     @import "~@govflanders/vl-ui-action-group/src/scss/action-group";
     @import "~@govflanders/vl-ui-link/src/scss/link";
+    @import "~@govflanders/vl-ui-spotlight/src/scss/spotlight";
 </style>

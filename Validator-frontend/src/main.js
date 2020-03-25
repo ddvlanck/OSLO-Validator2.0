@@ -24,7 +24,8 @@ import {
   VlInfoTile,
   VlActionGroup,
   VlLink,
-  VlIcon
+  VlIcon,
+  VlSpotlight
 } from '@govflanders/vl-ui-vue-components';
 
 Vue.component('vl-grid', VlGrid);
@@ -43,6 +44,7 @@ Vue.component('vl-info-tile', VlInfoTile);
 Vue.component('vl-action-group', VlActionGroup);
 Vue.component('vl-link', VlLink);
 Vue.component('vl-icon', VlIcon);
+Vue.component('vl-spotlight', VlSpotlight);
 
 Vue.use(VlCore);
 Vue.use(VlUtil);

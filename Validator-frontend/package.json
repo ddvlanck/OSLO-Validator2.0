@@ -16,6 +16,7 @@
     "@govflanders/vl-ui-input-field": "^3.10.7",
     "@govflanders/vl-ui-link": "^3.10.7",
     "@govflanders/vl-ui-select": "^3.10.7",
+    "@govflanders/vl-ui-spotlight": "^3.10.12",
     "@govflanders/vl-ui-tabs": "^3.10.7",
     "@govflanders/vl-ui-textarea": "^3.10.9",
     "@govflanders/vl-ui-titles": "^3.10.7",
