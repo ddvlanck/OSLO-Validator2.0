@@ -1,12 +1,13 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
         shaclResult: null,
-        requestBody: null
+        requestBody: null,
+        applicationProfiles: null
     },
 
     getters: {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
         },
         RequestBody: state => {
             return state.requestBody;
+        },
+        ApplicationProfiles: state => {
+            return state.applicationProfiles
         }
     },
 
@@ -24,6 +28,9 @@ export default new Vuex.Store({
         },
         setRequestBody(state, body){
             state.requestBody = body;
+        },
+        setApplicationProfiles(state, body){
+            state.applicationProfiles = body;
         }
     },
 

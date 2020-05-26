@@ -43,8 +43,8 @@
                     </vl-column>
                     <vl-column width="3">
                         <vl-select v-model="selectedAP">
-                            <option v-for="ap in this.applicationProfiles" :value="ap.toLowerCase()">
-                                {{ ap.replace('_', ' ') }}
+                            <option v-for="ap in this.applicationProfiles" :value="ap.toLowerCase().replace(' ', '_')">
+                                {{ ap }}
                             </option>
                         </vl-select>
                     </vl-column>
@@ -71,16 +71,13 @@
 <script>
 
     import store from "../store/store";
+console.log('HOME');
 
     export default {
         name: "HomeComponent",
         data() {
             return {
-                applicationProfiles: [
-                    'Adresregister', 'Besluit_Publicatie', 'Dienstencataloog', 'Generiek_basis', 'Generieke_Terugmeldfaciliteit',
-                    'Notificatie_basis', 'Organisatie_basis', 'Persoon_basis', 'Subsidieregister',
-                    'Contactvoorkeuren', 'Dienst_Transactiemodel', 'Vlaamse_codex'
-                ],
+                applicationProfiles: [],
                 shaclFile: null,
                 shaclFileError: false,
                 selectedAP: '',
@@ -157,7 +154,7 @@
                     store.commit('setRequestBody', requestBody);
 
                     // Send content to validator
-                    fetch('http://localhost:8080/shacl/applicatieprofielen/api/validate', {
+                    fetch('https://dev.data.vlaanderen.be/shacl-validator-backend/shacl/applicatieprofielen/api/validate', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -168,9 +165,23 @@
                         this.$router.push({path: 'results'});
                     })
                 }
-
-
             },
+        },
+        beforeCreate() {
+            // Read config of the backend to get all application profiles
+            fetch('https://raw.githubusercontent.com/Informatievlaanderen/OSLO-Validator-EU/dev/Validator-Backend/resources/applicatieprofielen/config.properties')
+                .then(res => res.text())
+                .then(data => {
+                    const result = data.match(/validator.typeLabel.[a-zA-Z0-9 =_]*/g);
+                    let names = [];
+                    for(let ap of result){
+                        names.push(ap.replace(/validator.typeLabel.[a-zA-Z_]*( )?=( )?/, ""));
+                    }
+
+                    store.commit('setApplicationProfiles', names);
+                    this.applicationProfiles = store.getters.ApplicationProfiles;
+                })
+
         }
     }
 </script>
