@@ -43,8 +43,8 @@
                     </vl-column>
                     <vl-column width="3">
                         <vl-select v-model="selectedAP">
-                            <option v-for="ap in this.applicationProfiles" :value="ap.toLowerCase()">
-                                {{ ap.replace('_', ' ') }}
+                            <option v-for="ap in this.applicationProfiles" :value="ap.toLowerCase().replace(' ', '_')">
+                                {{ ap }}
                             </option>
                         </vl-select>
                     </vl-column>
@@ -191,7 +191,7 @@
                     //  Now the body is stored so it can be used in the result to retrieve other formats of the result
                     //  In the future this needs to be deleted and fixed with rdf serializers
                     store.commit('setRequestBody', requestBody);
-                    
+
                     // Send content to validator
                     fetch('https://dev.data.vlaanderen.be/shacl-validator-backend/shacl/applicatieprofielen/api/validate', {
                         method: 'POST',
