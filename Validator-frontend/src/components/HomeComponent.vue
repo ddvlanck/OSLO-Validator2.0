@@ -74,6 +74,7 @@
     const fileReaderStream = require('filereader-stream');
     const N3 = require('n3');
     const Base64 = require('js-base64').Base64;
+    const config = require('../../config');
     export default {
         name: "HomeComponent",
         data() {
@@ -193,7 +194,7 @@
                     store.commit('setRequestBody', requestBody);
 
                     // Send content to validator
-                    fetch('https://dev.data.vlaanderen.be/shacl-validator-backend/shacl/applicatieprofielen/api/validate', {
+                    fetch(config.VALIDATOR_BACKEND, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -208,7 +209,7 @@
         },
         beforeCreate() {
             // Read config of the backend to get all application profiles
-            fetch('https://raw.githubusercontent.com/Informatievlaanderen/OSLO-Validator-EU/dev/Validator-Backend/resources/applicatieprofielen/config.properties')
+            fetch(config.VALIDATOR_BACKEND_CONFIG)
                 .then(res => res.text())
                 .then(data => {
                     const result = data.match(/validator.typeLabel.[a-zA-Z0-9 =_]*/g);

@@ -94,6 +94,7 @@
     import store from "../store/store";
 
     const Stream = require('stream');
+    const config = require('../../config');
 
     export default {
         name: "ResultComponent",
@@ -173,7 +174,7 @@
                 requestBody.reportSyntax = this.selectedFormat;
 
 
-                fetch('http://localhost:8080/shacl/applicatieprofielen/api/validate', {
+                fetch(config.VALIDATOR_BACKEND, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
