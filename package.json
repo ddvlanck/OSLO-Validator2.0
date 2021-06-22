@@ -1,0 +1,15 @@
+{
+  "name": "oslo-validator",
+  "repository": "https://github.com/informatievlaanderen/OSLO-Validator-EU",
+  "workspaces" : [
+    "packages/*"
+  ],
+  "scripts": {
+    "build-changed": "lerna run build --since HEAD",
+    "build" : "lerna run build"
+  },
+  "private": true,
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}

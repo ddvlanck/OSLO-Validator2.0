@@ -6,7 +6,7 @@ import ResultComponent from "../src/components/ResultComponent";
 Vue.use(Router);
 
 export default new Router({
-    mode: 'history',
+   mode: 'history',
    routes: [
        {
            path: '/',
@@ -14,7 +14,7 @@ export default new Router({
            component: HomeComponent
        },
        {
-           path: '/results',
+           path: '/results/',
            name: 'ResultComponent',
            component: ResultComponent
        }

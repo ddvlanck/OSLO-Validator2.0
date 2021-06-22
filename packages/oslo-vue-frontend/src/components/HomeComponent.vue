@@ -43,8 +43,8 @@
                     </vl-column>
                     <vl-column width="3">
                         <vl-select v-model="selectedAP">
-                            <option v-for="ap in this.applicationProfiles" :value="ap.toLowerCase().replace(' ', '_')">
-                                {{ ap }}
+                            <option v-for="ap in this.applicationProfiles" v-bind:key="ap" value="ap.toLowerCase()">
+                                {{ ap.replace('_', ' ') }}
                             </option>
                         </vl-select>
                     </vl-column>
@@ -69,17 +69,23 @@
 </template>
 
 <script>
+
     import store from "../store/store";
+
     const RdfaParser = require("rdfa-streaming-parser").RdfaParser;
     const fileReaderStream = require('filereader-stream');
     const N3 = require('n3');
     const Base64 = require('js-base64').Base64;
-    const config = require('../../config');
+
     export default {
         name: "HomeComponent",
         data() {
             return {
-                applicationProfiles: [],
+                applicationProfiles: [
+                    'Adresregister', 'Besluit_Publicatie', 'Dienstencataloog', 'Generiek_basis', 'Generieke_Terugmeldfaciliteit',
+                    'Notificatie_basis', 'Organisatie_basis', 'Persoon_basis', 'Subsidieregister',
+                    'Contactvoorkeuren', 'Dienst_Transactiemodel', 'Vlaamse_codex'
+                ],
                 shaclFile: null,
                 shaclFileError: false,
                 selectedAP: '',
@@ -96,6 +102,7 @@
                 const parser = new RdfaParser();
                 const readStream = fileReaderStream(this.shaclFile);
                 const writer = new N3.Writer();
+
                 return await new Promise(resolve => {
                     parser.import(readStream)
                         .on('data', quad => {
@@ -107,6 +114,7 @@
                                 if(err){
                                     console.error(err);
                                 }
+
                                 resolve(res);
                             });
                         });
@@ -132,10 +140,12 @@
             async validate() {
                 const index = this.$refs.tabs.activeTabIndex;
                 let requestBody = '';
+
                 if (!this.selectedAP) {
                     this.selectedAPError = true;
                 } else {
                     this.selectedAPError = false;
+
                     if (index === 0) {
                         // File
                         if (!this.shaclFile) {
@@ -143,6 +153,7 @@
                             return;
                         } else {
                             this.shaclFileError = false;
+
                             // In case of an RDFa file, we must transform it to another format because the EU validator does not support RDFa (yet)
                             if(this.shaclFile.name.indexOf('.html') >= 0){
                                 const ttl = await this.transformRDFaToTurtle();
@@ -156,6 +167,7 @@
                             } else {
                                 // Read contents of the regular file
                                 const reader = new FileReader();
+
                                 requestBody = await new Promise(resolve => {
                                     reader.onload = () => {
                                         const data = reader.result;
@@ -167,13 +179,16 @@
                                             validationType: this.selectedAP
                                         }));
                                     };
+
                                     reader.onerror = () => {
                                         console.log('Error: ', error);
                                     };
+
                                     reader.readAsDataURL(this.shaclFile);
                                 })
                             }
                         }
+
                     } else {
                         // URL
                         if (!this.URL) {
@@ -181,6 +196,7 @@
                             return;
                         } else {
                             this.URLError = false;
+
                             // Send URL
                             requestBody = JSON.stringify({
                                 contentToValidate: this.URL,
@@ -188,13 +204,14 @@
                             })
                         }
                     }
+
                     // TODO:
                     //  Now the body is stored so it can be used in the result to retrieve other formats of the result
                     //  In the future this needs to be deleted and fixed with rdf serializers
                     store.commit('setRequestBody', requestBody);
-
+;
                     // Send content to validator
-                    fetch(config.VALIDATOR_BACKEND, {
+                    fetch('http://localhost:8080/shacl/applicatieprofielen/api/validate', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -205,30 +222,13 @@
                         this.$router.push({path: 'results'});
                     })
                 }
-            }
-        },
-        beforeCreate() {
-            // Read config of the backend to get all application profiles
-            fetch(config.VALIDATOR_BACKEND_CONFIG)
-                .then(res => res.text())
-                .then(data => {
-                    const result = data.match(/validator.typeLabel.[a-zA-Z0-9 =_]*/g);
-                    let names = [];
-                    for(let ap of result){
-                        names.push(ap.replace(/validator.typeLabel.[a-zA-Z_]*( )?=( )?/, ""));
-                    }
-
-                    names.sort((a, b) => {
-                       return a < b ? -1 : 1;
-                    });
-                    store.commit('setApplicationProfiles', names);
-                    this.applicationProfiles = store.getters.ApplicationProfiles;
-                })
+            },
         }
     }
 </script>
 
 <style lang="scss">
+
     select {
         width: 150%;
     }

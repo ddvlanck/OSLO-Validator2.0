@@ -2,11 +2,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import routes from "../router/routes";
 import store from "./store/store";
-
+import VueI18n from 'vue-i18n';
 
 Vue.config.productionTip = false;
 
 import {
+  i18n,
   VlCore,
   VlUtil,
   VlRegion,
@@ -24,7 +25,8 @@ import {
   VlInfoTile,
   VlActionGroup,
   VlLink,
-  VlIcon
+  VlIcon,
+  VlSpotlight
 } from '@govflanders/vl-ui-vue-components';
 
 Vue.component('vl-grid', VlGrid);
@@ -43,9 +45,19 @@ Vue.component('vl-info-tile', VlInfoTile);
 Vue.component('vl-action-group', VlActionGroup);
 Vue.component('vl-link', VlLink);
 Vue.component('vl-icon', VlIcon);
+Vue.component('vl-spotlight', VlSpotlight);
 
 Vue.use(VlCore);
 Vue.use(VlUtil);
+
+Vue.use(VueI18n);
+
+const messages = i18n;
+const vlI18n = new VueI18n({
+  locale: 'nl-BE',
+  messages,
+});
+Vue.use(vlI18n);
 
 new Vue({
   router: routes,

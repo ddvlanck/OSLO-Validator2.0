@@ -28,33 +28,14 @@
                                             class="errorItem"
                                             :title="result.message"
                                             :subtitle="result.type">
-                                        Location: <strong>{{result.resultPath}}</strong>
+                                        Location: <strong>{{result.focusNode}}</strong><br>
+                                        Result path: <strong>{{result.resultPath}}</strong>
                                     </vl-info-tile>
                                 </vl-column>
                             </vl-grid>
                         </div>
                     </vl-tab>
                     <vl-tab label="Raw">
-                        <!--<vl-action-group mod-align-right mod-bordered mod-collapse-m>
-                            EXAMPLE
-                            <vl-link download="validationResult.jsonld" href="data:application/octet-stream;charset=utf-16le;base64,//5mAG8AbwAgAGIAYQByAAoA"><vl-icon icon="file-download"/> JSON-LD</vl-link>
-                            <vl-link :href="jsonldData">
-                                <vl-icon icon="file-download"/>
-                                JSON-LD
-                            </vl-link>
-                            <vl-link download="test.xml" :href="rdfxmlData">
-                                <vl-icon icon="file-download"/>
-                                RDF/XML
-                            </vl-link>
-                            <vl-link :href="ntriplesData">
-                                <vl-icon icon="file-download"/>
-                                N-Triples
-                            </vl-link>
-                            <vl-link :href="turtleData">
-                                <vl-icon icon="file-download"/>
-                                Turtle
-                            </vl-link>
-                        </vl-action-group>-->
                         <vl-grid mod-stacked>
                             <vl-column width="4">
                                 <vl-select id="select" @input="changeFormat" v-model="selectedFormat" placeholder-text="Selecteer een formaat">
@@ -94,7 +75,6 @@
     import store from "../store/store";
 
     const Stream = require('stream');
-    const config = require('../../config');
 
     export default {
         name: "ResultComponent",
@@ -164,17 +144,20 @@
                     this.resultObject[subject].message = object;
                 }
 
+                if(predicate === 'http://www.w3.org/ns/shacl#focusNode'){
+                    this.resultObject[subject].focusNode = object;
+                }
+
             },
             navigate() {
-                this.$router.push({path: '/'})
+                this.$router.push({path: process.env.VUE_APP_FRONTEND_PATH + '/'})
             },
             changeFormat() {
                 //TODO: in future we need to fix the serializations with rdf instead of querying the validator
                 const requestBody = JSON.parse(store.getters.RequestBody);
                 requestBody.reportSyntax = this.selectedFormat;
 
-
-                fetch(config.VALIDATOR_BACKEND, {
+                fetch(process.env.VUE_APP_HOSTNAME_URL +  process.env.VUE_APP_BACKEND_PATH + '/shacl/applicatieprofielen/api/validate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
