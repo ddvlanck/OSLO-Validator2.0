@@ -11,5 +11,5 @@
             }
         }
     ],
-    "baseBranches" : ["dev", "test", "production"]
+    "baseBranches" : ["dev", "test", "production", "master"]
 }
