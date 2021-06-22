@@ -11,7 +11,7 @@
                     <vl-tab label="Pretty">
                         <div v-if="Object.keys(this.resultObject).length > 0">
                             <vl-grid mod-stacked>
-                                <vl-column v-for="result in resultObject">
+                                <vl-column v-for="result in resultObject" v-bind:key="result">
                                     <vl-info-tile
                                             v-if="result.type === 'http://www.w3.org/ns/shacl#ValidationReport'"
                                             tag-name="div"

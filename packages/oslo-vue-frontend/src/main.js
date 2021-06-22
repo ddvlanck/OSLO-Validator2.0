@@ -2,62 +2,18 @@ import Vue from 'vue'
 import App from './App.vue'
 import routes from "../router/routes";
 import store from "./store/store";
-import VueI18n from 'vue-i18n';
+import VlUiVueComponents from'@govflanders/vl-ui-vue-components';
 
 Vue.config.productionTip = false;
 
-import {
-  i18n,
-  VlCore,
-  VlUtil,
-  VlRegion,
-  VlGrid,
-  VlColumn,
-  VlLayout,
-  VlTabs,
-  VlTab,
-  VlUpload,
-  VlInputField,
-  VlTextarea,
-  VlTitle,
-  VlSelect,
-  VlButton,
-  VlInfoTile,
-  VlActionGroup,
-  VlLink,
-  VlIcon,
-  VlSpotlight
-} from '@govflanders/vl-ui-vue-components';
+const validatorConfig = {
+  inject: true,
+  locale: 'nl',
+};
 
-Vue.component('vl-grid', VlGrid);
-Vue.component('vl-region', VlRegion);
-Vue.component('vl-column', VlColumn);
-Vue.component('vl-layout', VlLayout);
-Vue.component('vl-tabs', VlTabs);
-Vue.component('vl-tab', VlTab);
-Vue.component('vl-upload', VlUpload);
-Vue.component('vl-input-field', VlInputField);
-Vue.component('vl-textarea', VlTextarea);
-Vue.component('vl-title', VlTitle);
-Vue.component('vl-select', VlSelect);
-Vue.component('vl-button', VlButton);
-Vue.component('vl-info-tile', VlInfoTile);
-Vue.component('vl-action-group', VlActionGroup);
-Vue.component('vl-link', VlLink);
-Vue.component('vl-icon', VlIcon);
-Vue.component('vl-spotlight', VlSpotlight);
-
-Vue.use(VlCore);
-Vue.use(VlUtil);
-
-Vue.use(VueI18n);
-
-const messages = i18n;
-const vlI18n = new VueI18n({
-  locale: 'nl-BE',
-  messages,
+Vue.use(VlUiVueComponents, {
+  validation: validatorConfig,
 });
-Vue.use(vlI18n);
 
 new Vue({
   router: routes,

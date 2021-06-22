@@ -44,4 +44,5 @@
     @import "~@govflanders/vl-ui-action-group/src/scss/action-group";
     @import "~@govflanders/vl-ui-link/src/scss/link";
     @import "~@govflanders/vl-ui-spotlight/src/scss/spotlight";
+    @import "~@govflanders/vl-ui-tooltip/src/scss/tooltip";
 </style>

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HomeComponent from "../src/components/HomeComponent";
-import ResultComponent from "../src/components/ResultComponent";
+import HomeView from "../src/views/HomeView";
+import ResultView from "../src/views/ResultView";
 
 Vue.use(Router);
 
@@ -10,13 +10,13 @@ export default new Router({
    routes: [
        {
            path: '/',
-           name: 'HomeComponent',
-           component: HomeComponent
+           name: 'Home',
+           component: HomeView
        },
        {
            path: '/results/',
-           name: 'ResultComponent',
-           component: ResultComponent
+           name: 'Result',
+           component: ResultView
        }
    ]
 });
