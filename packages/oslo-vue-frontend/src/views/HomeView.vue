@@ -6,18 +6,10 @@
                 <vl-column>
                     <vl-tabs ref="tabs">
                         <vl-tab label="Valideer een bestand" id="file">
-                            <vl-title tag-name="h3">Kies een bestand</vl-title>
-                            <vl-upload id="dataFile" name="dataFile" @upload-file-added="fileAdded" url="https://httpbin.org/post" upload-drag-text="Of sleep het databestand naar hier om het toe te voegen." upload-label="Databestand toevoegen" max-files="1" max-files-msg="Je mag maar 1 bestand tegelijk uploaden" max-filesize="20000000" max-filesize-msg="Het bestand mag max 20000000 zijn." allowed-file-types=".ttl, .rdf, .xml, .json, .jsonld, .html" />
+                            <upload-component v-on:onFileAdded="onFileAdded"/>
                         </vl-tab>
                         <vl-tab label="Valideer een URL" id="url">
-                            <vl-grid>
-                                <vl-column width="1">
-                                    <vl-title tag-name="h3">URL</vl-title>
-                                </vl-column>
-                                <vl-column width="5">
-                                    <vl-input-field v-model="Url" name="inputFieldURL" mod-block></vl-input-field>
-                                </vl-column>
-                            </vl-grid>
+                            <input-component v-on:onInputChanged="onUrlInput"/>
                         </vl-tab>
                     </vl-tabs>
                 </vl-column>
@@ -26,28 +18,17 @@
     </vl-region>
     <vl-region>
         <vl-layout>
-            <vl-grid>
-                <vl-column width="2">
-                    <vl-title tag-name="h3">Applicatieprofiel</vl-title>
-                </vl-column>
-                <vl-column width="3">
-                    <vl-select v-model="selectedApplicationProfile">
-                        <option v-for="ap in this.applicationProfiles" v-bind:key="ap" :value="ap.toLowerCase()">
-                            {{ ap.replace('_', ' ') }}
-                        </option>
-                    </vl-select>
-                </vl-column>
-                <vl-column v-if="selectError">
-                    <p style="color: red">Gelieve een applicatieprofiel te kiezen.</p>
-                </vl-column>
-            </vl-grid>
+            <select-component v-on:onChangeSelect="onApplicationProfileChange"/>
         </vl-layout>
     </vl-region>
     <vl-region>
         <vl-layout>
             <vl-grid>
                 <vl-column>
-                    <vl-button @click="validate" mod-wide>
+                    <vl-button
+                        @click="validate"
+                        :mod-disabled="!contentCanbeValidated"
+                        mod-wide>
                         Valideer
                     </vl-button>
                 </vl-column>
@@ -58,7 +39,9 @@
 </template>
 
 <script>
-import UploadComponentVue from '../components/UploadComponent.vue';
+import InputComponentVue from '../components/InputComponent.vue';
+import SelectComponentVue from '../components/SelectComponent.vue';
+import UploadComponent from '../components/UploadComponent.vue';
 import store from "../store/store";
 
 const RdfaParser = require("rdfa-streaming-parser").RdfaParser;
@@ -69,26 +52,33 @@ const Base64 = require('js-base64').Base64;
 export default {
     name: "HomeComponent",
     components: {
-        'upload-component': UploadComponentVue
+        'upload-component': UploadComponent,
+        'select-component' : SelectComponentVue,
+        'input-component' : InputComponentVue
     },
     data() {
         return {
-            applicationProfiles: [
-                'Adresregister', 'Besluit_Publicatie', 'Dienstencataloog', 'Generiek_basis', 'Generieke_Terugmeldfaciliteit',
-                'Notificatie_basis', 'Organisatie_basis', 'Persoon_basis', 'Subsidieregister',
-                'Contactvoorkeuren', 'Dienst_Transactiemodel', 'Vlaamse_codex'
-            ],
-            uploadedFile: null,
-            fileUploadError: false,
-            selectedApplicationProfile: '',
-            selectError: false,
-            Url: '',
-            UrlInputError: false
+            file: null,
+            applicationProfile: '',
+            url: '',
+            contentCanbeValidated: false
         }
     },
     methods: {
-        fileAdded(file) {
-            this.uploadedFile = file;
+        onApplicationProfileChange(value){
+            this.applicationProfile = value;
+            this.checkIfContentCanBeValidated();
+        },
+        onUrlInput(value){
+            this.url = value;
+            this.checkIfContentCanBeValidated();
+        },
+        onFileAdded(file) {
+            this.file = file;
+            this.checkIfContentCanBeValidated();
+        },
+        checkIfContentCanBeValidated(){
+            this.contentCanbeValidated = this.applicationProfile !== '' && (this.file !== null || this.url !== '');
         },
         async transformRDFaToTurtle() {
             const parser = new RdfaParser();
