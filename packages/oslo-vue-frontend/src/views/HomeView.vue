@@ -6,10 +6,10 @@
                 <vl-column>
                     <vl-tabs ref="tabs">
                         <vl-tab label="Valideer een bestand" id="file">
-                            <upload-component v-on:onFileAdded="onFileAdded"/>
+                            <upload-component v-on:onFileAdded="onFileAdded" />
                         </vl-tab>
                         <vl-tab label="Valideer een URL" id="url">
-                            <input-component v-on:onInputChanged="onUrlInput"/>
+                            <input-component v-on:onInputChanged="onUrlInput" />
                         </vl-tab>
                     </vl-tabs>
                 </vl-column>
@@ -18,17 +18,14 @@
     </vl-region>
     <vl-region>
         <vl-layout>
-            <select-component v-on:onChangeSelect="onApplicationProfileChange"/>
+            <select-component v-on:onChangeSelect="onApplicationProfileChange" />
         </vl-layout>
     </vl-region>
     <vl-region>
         <vl-layout>
             <vl-grid>
                 <vl-column>
-                    <vl-button
-                        @click="validate"
-                        :mod-disabled="!contentCanbeValidated"
-                        mod-wide>
+                    <vl-button @click="validate" :mod-disabled="!contentCanbeValidated" mod-wide>
                         Valideer
                     </vl-button>
                 </vl-column>
@@ -42,6 +39,7 @@
 import InputComponentVue from '../components/InputComponent.vue';
 import SelectComponentVue from '../components/SelectComponent.vue';
 import UploadComponent from '../components/UploadComponent.vue';
+import config from '../config';
 import store from "../store/store";
 
 const RdfaParser = require("rdfa-streaming-parser").RdfaParser;
@@ -50,11 +48,11 @@ const N3 = require('n3');
 const Base64 = require('js-base64').Base64;
 
 export default {
-    name: "HomeComponent",
+    name: "HomeView",
     components: {
         'upload-component': UploadComponent,
-        'select-component' : SelectComponentVue,
-        'input-component' : InputComponentVue
+        'select-component': SelectComponentVue,
+        'input-component': InputComponentVue
     },
     data() {
         return {
@@ -65,11 +63,11 @@ export default {
         }
     },
     methods: {
-        onApplicationProfileChange(value){
+        onApplicationProfileChange(value) {
             this.applicationProfile = value;
             this.checkIfContentCanBeValidated();
         },
-        onUrlInput(value){
+        onUrlInput(value) {
             this.url = value;
             this.checkIfContentCanBeValidated();
         },
@@ -77,12 +75,12 @@ export default {
             this.file = file;
             this.checkIfContentCanBeValidated();
         },
-        checkIfContentCanBeValidated(){
+        checkIfContentCanBeValidated() {
             this.contentCanbeValidated = this.applicationProfile !== '' && (this.file !== null || this.url !== '');
         },
         async transformRDFaToTurtle() {
             const parser = new RdfaParser();
-            const readStream = fileReaderStream(this.uploadedFile);
+            const readStream = fileReaderStream(this.file);
             const writer = new N3.Writer();
 
             return await new Promise(resolve => {
@@ -120,7 +118,7 @@ export default {
             }
         },
         isRDFaFile() {
-            return this.uploadedFile.name.indexOf('.html') >= 0;
+            return this.file.name.indexOf('.html') >= 0;
         },
         applicationProfileWasSelected() {
             if (this.selectedApplicationProfile === '') {
@@ -146,7 +144,7 @@ export default {
                         console.log('Error: ', error);
                     };
 
-                    reader.readAsDataURL(this.uploadedFile);
+                    reader.readAsDataURL(this.file);
                 });
             }
 
@@ -155,7 +153,7 @@ export default {
         createRequestBodyForFile(data, isRDFaFile) {
             const body = {
                 embeddingMethod: "BASE64",
-                validationType: this.selectedApplicationProfile //GIVES ERROR
+                validationType: this.applicationProfile //GIVES ERROR
             };
 
             if (isRDFaFile) {
@@ -163,10 +161,10 @@ export default {
                 body["contentSyntax"] = "text/turtle";
             } else {
                 body["contentToValidate"] = data.substring(data.indexOf(",") + 1, data.length);
-                data["contentSyntax"] = this.getContentFormat(this.uploadedFile.name);
+                body["contentSyntax"] = this.getContentFormat(this.file.name);
             }
 
-            return body;
+            return JSON.stringify(body);
         },
         createRequestBodyForUrl() {
             return JSON.stringify({
@@ -180,29 +178,30 @@ export default {
 
             if (index === 0) {
                 const data = await this.readFile();
-                console.log(data);
-                requestBody = this.createRequestBodyForFile(data, this.isRDFaFile);
+                requestBody = this.createRequestBodyForFile(data, this.isRDFaFile());
             } else {
                 requestBody = this.createRequestBodyForUrl();
             }
 
-            console.log(requestBody);
-
             store.commit('setRequestBody', requestBody);
 
-            fetch('http://localhost:8080/shacl/applicatieprofielen/api/validate', {
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var requestOptions = {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: requestBody
-            }).then(res => {
-                store.commit('setResult', res);
-                this.$router.push({
-                    path: 'results'
-                });
-            });
-        },
+                headers: myHeaders,
+                body: requestBody,
+                redirect: 'follow'
+            };
+
+            fetch(config.hostnameUrlLocal + config.apiPath, requestOptions)
+                .then(response => {
+                    store.commit('setResult', response);
+                    this.$router.push({path: 'results'});
+                })
+                .catch(error => console.log('error', error));
+        }
     }
 }
 </script>
