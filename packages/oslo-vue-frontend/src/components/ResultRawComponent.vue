@@ -1,17 +1,37 @@
 <template>
-<vl-grid mod-stacked>
+  <vl-grid mod-stacked>
     <vl-column width="4">
-        <vl-select @input="changeFormat" v-model="selectedFormat" placeholder-text="Selecteer een formaat">
-            <option v-for="format in this.formats" v-bind:key="format.name" :value="format.mimeType">{{format.name}}</option>
-        </vl-select>
+      <vl-select
+        v-model="selectedFormat"
+        placeholder-text="Selecteer een formaat"
+        @input="changeFormat"
+      >
+        <option
+          v-for="format in formats"
+          :key="format.name"
+          :value="format.mimeType"
+        >
+          {{ format.name }}
+        </option>
+      </vl-select>
     </vl-column>
     <vl-column width="8">
-        <vl-link id="downloadLink" @click.prevent="download" :href="downloadLink">Download resultaat</vl-link>
+      <vl-link
+        id="downloadLink"
+        :href="downloadLink"
+        @click.prevent="download"
+      >
+        Download resultaat
+      </vl-link>
     </vl-column>
     <vl-column>
-        <vl-textarea disabled mod-block :value="displayedResult"></vl-textarea>
+      <vl-textarea
+        disabled
+        mod-block
+        :value="displayedResult"
+      />
     </vl-column>
-</vl-grid>
+  </vl-grid>
 </template>
 
 <script>
@@ -20,7 +40,10 @@ import store from "../store/store";
 export default {
     name: "ResultRawComponent",
     props: {
-        rawResult: String
+        rawResult: {
+            type: String,
+            default: ''
+        }
     },
     data() {
         return {
@@ -45,6 +68,12 @@ export default {
             displayedResult: store.getters.ShaclResult,
             downloadLink: '',
             nameDownloadFile: ''
+        }
+    },
+    watch : {
+        rawResult: function(val){
+            this.displayedResult = val;
+            this.createDownloadLink();
         }
     },
     methods: {
@@ -110,12 +139,6 @@ export default {
             link.download = this.nameDownloadFile;
             link.click()
             URL.revokeObjectURL(link.href);
-        }
-    },
-    watch : {
-        rawResult: function(val){
-            this.displayedResult = val;
-            this.createDownloadLink();
         }
     }
 }

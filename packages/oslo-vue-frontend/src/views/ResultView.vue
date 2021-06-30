@@ -1,25 +1,27 @@
 <template>
-<div>
+  <div>
     <vl-region>
-        <vl-layout>
-            <vl-button @click="navigate">Terug</vl-button>
-        </vl-layout>
+      <vl-layout>
+        <vl-button @click="navigate">
+          Terug
+        </vl-button>
+      </vl-layout>
     </vl-region>
     <vl-region>
-        <vl-layout>
-            <vl-tabs>
-                <vl-tab label="Pretty">
-                    <div v-if="Object.keys(this.resultObject).length > 0">
-                        <result-pretty :resultObject="resultObject" />
-                    </div>
-                </vl-tab>
-                <vl-tab label="Raw">
-                    <result-raw :rawResult="rawResult"/>
-                </vl-tab>
-            </vl-tabs>
-        </vl-layout>
+      <vl-layout>
+        <vl-tabs>
+          <vl-tab label="Pretty">
+            <div v-if="Object.keys(resultObject).length > 0">
+              <result-pretty :result-object="resultObject" />
+            </div>
+          </vl-tab>
+          <vl-tab label="Raw">
+            <result-raw :raw-result="rawResult" />
+          </vl-tab>
+        </vl-tabs>
+      </vl-layout>
     </vl-region>
-</div>
+  </div>
 </template>
 
 <script>
@@ -45,6 +47,12 @@ export default {
             rawResult: '',
             downloadLink: '',
             nameDownloadFile: ''
+        }
+    },
+    mounted() {
+        const result = store.getters.ShaclResult;
+        if (result) {
+            this.processResult(result);
         }
     },
     methods: {
@@ -111,12 +119,6 @@ export default {
                 path: process.env.VUE_APP_FRONTEND_PATH + '/'
             })
         },
-    },
-    mounted() {
-        const result = store.getters.ShaclResult;
-        if (result) {
-            this.processResult(result);
-        }
     }
 }
 </script>

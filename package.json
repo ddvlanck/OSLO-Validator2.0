@@ -1,15 +1,18 @@
 {
   "name": "oslo-validator",
   "repository": "https://github.com/informatievlaanderen/OSLO-Validator-EU",
-  "workspaces" : [
+  "workspaces": [
     "packages/*"
   ],
   "scripts": {
     "build-changed": "lerna run build --since HEAD",
-    "build" : "lerna run build"
+    "build": "lerna run build",
+    "lint" : "eslint --ext .js,.vue packages/oslo-vue-frontend"
   },
   "private": true,
   "devDependencies": {
+    "eslint": "^7.29.0",
+    "eslint-plugin-vue": "^7.12.1",
     "lerna": "^4.0.0"
   }
 }

@@ -1,38 +1,48 @@
 <template>
-<div>
+  <div>
     <vl-region>
-        <vl-layout>
-            <vl-grid>
-                <vl-column>
-                    <vl-tabs ref="tabs">
-                        <vl-tab label="Valideer een bestand" id="file">
-                            <upload-component v-on:onFileAdded="onFileAdded" />
-                        </vl-tab>
-                        <vl-tab label="Valideer een URL" id="url">
-                            <input-component v-on:onInputChanged="onUrlInput" />
-                        </vl-tab>
-                    </vl-tabs>
-                </vl-column>
-            </vl-grid>
-        </vl-layout>
+      <vl-layout>
+        <vl-grid>
+          <vl-column>
+            <vl-tabs ref="tabs">
+              <vl-tab 
+                id="file" 
+                label="Valideer een bestand"
+              >
+                <upload-component @onFileAdded="onFileAdded" />
+              </vl-tab>
+              <vl-tab
+                id="url"
+                label="Valideer een URL"
+              >
+                <input-component @onInputChanged="onUrlInput" />
+              </vl-tab>
+            </vl-tabs>
+          </vl-column>
+        </vl-grid>
+      </vl-layout>
     </vl-region>
     <vl-region>
-        <vl-layout>
-            <select-component v-on:onChangeSelect="onApplicationProfileChange" />
-        </vl-layout>
+      <vl-layout>
+        <select-component @onChangeSelect="onApplicationProfileChange" />
+      </vl-layout>
     </vl-region>
     <vl-region>
-        <vl-layout>
-            <vl-grid>
-                <vl-column>
-                    <vl-button @click="validate" :mod-disabled="!contentCanbeValidated" mod-wide>
-                        Valideer
-                    </vl-button>
-                </vl-column>
-            </vl-grid>
-        </vl-layout>
+      <vl-layout>
+        <vl-grid>
+          <vl-column>
+            <vl-button
+              :mod-disabled="!contentCanbeValidated"
+              mod-wide
+              @click="validate"
+            >
+              Valideer
+            </vl-button>
+          </vl-column>
+        </vl-grid>
+      </vl-layout>
     </vl-region>
-</div>
+  </div>
 </template>
 
 <script>
@@ -153,7 +163,7 @@ export default {
         createRequestBodyForFile(data, isRDFaFile) {
             const body = {
                 embeddingMethod: "BASE64",
-                validationType: this.applicationProfile //GIVES ERROR
+                validationType: this.applicationProfile
             };
 
             if (isRDFaFile) {
