@@ -27,7 +27,7 @@
     <vl-column>
       <vl-textarea
         disabled
-        mod-block
+        mod-block 
         :value="displayedResult"
       />
     </vl-column>
