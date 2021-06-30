@@ -14,14 +14,17 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Installing dependencies
+      - name: Installing root dependencies
+        run: npm install
+      - name: Installing project specific dependencies
+        working-directory: ./packages/oslo-vue-frontend
         run: npm install
         env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} 
       - name: Run build 
         run: npm run build --if-present
         env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} 
 
   lint:
     runs-on: ubuntu-latest

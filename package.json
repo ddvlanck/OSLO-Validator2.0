@@ -7,7 +7,7 @@
   "scripts": {
     "build-changed": "lerna run build --since HEAD",
     "build": "lerna run build",
-    "lint" : "eslint . --ext .js,.vue --cache"
+    "lint": "eslint . --ext .js,.vue --cache"
   },
   "private": true,
   "devDependencies": {
