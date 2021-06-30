@@ -8,9 +8,9 @@
     <vl-column width="5">
       <vl-input-field
         v-model="url"
-        name="inputFieldURL" 
-        mod-block 
-        :mod-error="urlInputError()" 
+        name="inputFieldURL"
+        mod-block
+        :mod-error="urlInputError()"
         @input="inputChanged"
         @focus="setInputSelectedValue(true)"
         @blur="inputHasValue"
@@ -26,29 +26,34 @@
 
 <script>
 export default {
-  name : "InputComponent",
-  emits: ['onInputChanged'],
+  name: "InputComponent",
+  emits: ["onInputChanged"],
   data() {
     return {
-        urlProvided: null,
-        inputSelected: null,
-        url: ''
-    }
+      urlProvided: null,
+      inputSelected: null,
+      url: ""
+    };
   },
   methods: {
-    inputChanged(value){
-        this.$emit('onInputChanged', value);
+    inputChanged(value) {
+      this.$emit("onInputChanged", value);
     },
-    inputHasValue(){
-        this.setInputSelectedValue(false);
-        this.urlProvided = this.url === ''? false: true;
+    inputHasValue() {
+      this.setInputSelectedValue(false);
+      this.urlProvided = this.url === "" ? false : true;
     },
-    setInputSelectedValue(value){
-        this.inputSelected = value;
+    setInputSelectedValue(value) {
+      this.inputSelected = value;
     },
-    urlInputError(){
-        return this.inputSelected !== null && !this.inputSelected && this.urlProvided !== null && !this.urlProvided;
+    urlInputError() {
+      return (
+        this.inputSelected !== null &&
+        !this.inputSelected &&
+        this.urlProvided !== null &&
+        !this.urlProvided
+      );
     }
   }
-}
+};
 </script>

@@ -17,11 +17,11 @@
           :key="ap"
           :value="ap.toLowerCase()"
         >
-          {{ ap.replace('_', ' ') }}
+          {{ ap.replace("_", " ") }}
         </option>
       </vl-select>
     </vl-column>
-    <vl-column v-if="showSelectError ">
+    <vl-column v-if="showSelectError">
       <p style="color: red">
         Gelieve een applicatieprofiel te kiezen.
       </p>
@@ -31,36 +31,36 @@
 
 <script>
 export default {
-  name : "SelectComponent",
+  name: "SelectComponent",
   emits: ["onChangeSelect"],
   data() {
     return {
       applicationProfiles: [
-        'Adresregister', 
-        'Besluit_Publicatie', 
-        'Dienstencataloog', 
-        'Generiek_basis', 
-        'Generieke_Terugmeldfaciliteit',
-        'Notificatie_basis', 
-        'Organisatie_basis', 
-        'Persoon_basis', 
-        'Subsidieregister',
-        'Contactvoorkeuren', 
-        'Dienst_Transactiemodel', 
-        'Vlaamse_codex'
+        "Adresregister",
+        "Besluit_Publicatie",
+        "Dienstencataloog",
+        "Generiek_basis",
+        "Generieke_Terugmeldfaciliteit",
+        "Notificatie_basis",
+        "Organisatie_basis",
+        "Persoon_basis",
+        "Subsidieregister",
+        "Contactvoorkeuren",
+        "Dienst_Transactiemodel",
+        "Vlaamse_codex"
       ],
       showSelectError: false,
-      applicationProfile: ''
-    }
+      applicationProfile: ""
+    };
   },
   methods: {
-    onChangeSelect(value){
+    onChangeSelect(value) {
       this.applicationProfile = value;
       this.showSelectError = false;
-      this.$emit('onChangeSelect', value);
+      this.$emit("onChangeSelect", value);
     },
-    validateError(){
-      if(this.applicationProfile === ''){
+    validateError() {
+      if (this.applicationProfile === "") {
         this.showSelectError = true;
         return true;
       }
@@ -69,5 +69,5 @@ export default {
       return false;
     }
   }
-}
+};
 </script>

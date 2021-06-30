@@ -1,32 +1,31 @@
-import Vuex from 'vuex'
-import Vue from 'vue'
+import Vuex from "vuex";
+import Vue from "vue";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-    state: {
-        shaclResult: null,
-        requestBody: null
-    },
+  state: {
+    shaclResult: null,
+    requestBody: null,
+  },
 
-    getters: {
-        ShaclResult: state => {
-            return state.shaclResult;
-        },
-        RequestBody: state => {
-            return state.requestBody;
-        }
+  getters: {
+    ShaclResult: (state) => {
+      return state.shaclResult;
     },
-
-    mutations: {
-        setResult(state, result){
-            state.shaclResult = result;
-        },
-        setRequestBody(state, body){
-            state.requestBody = body;
-        }
+    RequestBody: (state) => {
+      return state.requestBody;
     },
+  },
 
-    actions: {
-    }
+  mutations: {
+    setResult(state, result) {
+      state.shaclResult = result;
+    },
+    setRequestBody(state, body) {
+      state.requestBody = body;
+    },
+  },
+
+  actions: {},
 });

@@ -13,7 +13,8 @@
       >
         Conforms? <strong>{{ result.conforms }}</strong>
         <br>
-        Aantal fouten? <strong>{{ Object.keys(resultObject).length - 1 }}</strong>
+        Aantal fouten?
+        <strong>{{ Object.keys(resultObject).length - 1 }}</strong>
       </vl-info-tile>
       <vl-info-tile
         v-else
@@ -31,23 +32,23 @@
 
 <script>
 export default {
-  "name" : "ResultPrettyComponent",
+  name: "ResultPrettyComponent",
   props: {
     resultObject: {
       type: Object,
       default: null
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
-  .errorItem {
-      background-color: #F2DEDE;
-      border: 1px solid red;
-  }
+.errorItem {
+  background-color: #f2dede;
+  border: 1px solid red;
+}
 
-  .overviewItem {
-      background-color: lightgrey;
-  }
+.overviewItem {
+  background-color: lightgrey;
+}
 </style>
