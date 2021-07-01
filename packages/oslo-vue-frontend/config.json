@@ -1,7 +1,0 @@
-{
-    "frontendPath" : "/shacl-validator",
-    "backendPath" : "/shacl-validator-backend",
-    "hostnameUrl" : "https://data.dev-vlaanderen.be",
-    "hostnameUrlLocal" : "http://localhost:8080",
-    "apiPath" : "/shacl/applicatieprofielen/api/validate"
-}

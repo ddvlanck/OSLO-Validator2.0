@@ -214,7 +214,7 @@ export default {
         redirect: "follow"
       };
 
-      fetch(config.hostnameUrlLocal + config.apiPath, requestOptions)
+      fetch(config.HOSTNAME_URL_LOCAL + config.API_PATH, requestOptions)
         .then(response => {
           store.commit("setResult", response);
           this.$router.push({ path: "results" });

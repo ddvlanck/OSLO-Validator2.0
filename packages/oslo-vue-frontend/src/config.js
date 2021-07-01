@@ -1,5 +1,9 @@
-var env = process.env.NODE_ENV || "development";
+var env = process.env.NODE_ENV || 'development'
 
-const config = require("../config.json");
+var config = {
+  development: require('../config/development.js'),
+  production: require('../config/production.js'),
+  staging: require('../config/staging.js')
+}
 
-module.exports = config;
+module.exports = config[env];
