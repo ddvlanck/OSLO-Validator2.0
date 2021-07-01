@@ -9,7 +9,7 @@
   "dependencies": {
     "@govflanders/vl-ui-action-group": "3.12.28",
     "@govflanders/vl-ui-button": "3.12.28",
-    "@govflanders/vl-ui-content-header": "3.12.26",
+    "@govflanders/vl-ui-content-header": "3.12.28",
     "@govflanders/vl-ui-core": "4.1.26",
     "@govflanders/vl-ui-icon": "3.12.26",
     "@govflanders/vl-ui-info-tile": "3.12.26",
