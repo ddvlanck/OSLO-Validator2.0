@@ -5,7 +5,6 @@ import store from "./store/store";
 import VlUiVueComponents from "@govflanders/vl-ui-vue-components";
 
 Vue.config.productionTip = false;
-console.log(process.env.NODE_ENV);
 
 const validatorConfig = {
   inject: true,
