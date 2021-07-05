@@ -22,7 +22,7 @@
     "@govflanders/vl-ui-titles": "3.12.28",
     "@govflanders/vl-ui-tooltip": "3.12.28",
     "@govflanders/vl-ui-upload": "3.12.28",
-    "@govflanders/vl-ui-vue-components": "4.1.26",
+    "@govflanders/vl-ui-vue-components": "4.1.28",
     "core-js": "3.15.0",
     "filereader-stream": "2.0.0",
     "js-base64": "2.6.4",
