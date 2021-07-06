@@ -42,7 +42,7 @@
     "@vue/cli-plugin-babel": "4.5.13",
     "@vue/cli-service": "4.5.13",
     "husky": "7.0.0",
-    "sass-loader": "10.2.0",
+    "sass-loader": "12.1.0",
     "vue-template-compiler": "2.6.14"
   }
 }
