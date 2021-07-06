@@ -12,5 +12,6 @@
             }
         }
     ],
+    "ignoreDeps" : ["sass-loader"],
     "baseBranches" : ["dev", "test", "production"]
 }
