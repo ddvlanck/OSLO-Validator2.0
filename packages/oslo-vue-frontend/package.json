@@ -27,7 +27,7 @@
     "filereader-stream": "2.0.0",
     "js-base64": "2.6.4",
     "n3": "1.10.0",
-    "node-sass": "6.0.0",
+    "node-sass": "6.0.1",
     "rdfa-streaming-parser": "1.4.0",
     "rdfxml-streaming-parser": "1.4.0",
     "stream": "0.0.2",
