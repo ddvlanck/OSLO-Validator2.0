@@ -20,7 +20,7 @@
     "@govflanders/vl-ui-textarea": "3.12.30",
     "@govflanders/vl-ui-titles": "3.12.30",
     "@govflanders/vl-ui-upload": "3.12.30",
-    "@govflanders/vl-ui-vue-components": "3.11.0",
+    "@govflanders/vl-ui-vue-components": "4.1.31",
     "core-js": "3.15.2",
     "node-sass": "4.14.1",
     "rdfxml-streaming-parser": "1.4.0",
